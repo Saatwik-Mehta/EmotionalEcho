@@ -1,0 +1,41 @@
+name: Deploy emotional-echo-project CI
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  development-deploy:
+    name: development-deploy
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+    env:
+        google_gemini_api_key: ${{ secrets.google_gemini_api_key }}
+        
+    strategy:
+            matrix:
+              python-version: ["3.9"]
+              node-version: [16.x]
+    steps:
+        - uses: actions/checkout@v3
+        - name: Use Python ${{matrix.python-version}}
+          uses: actions/setup-python@v4
+          with:
+            python-version: ${{ matrix.python-version}}
+        - uses: actions/checkout@v3
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v3
+          with:
+            node-version: ${{ matrix.node-version }}
+        - run: npm shrinkwrap
+        - run: npm install
+        - run: npm ci
+        - name: Deploy
+          uses: serverless/github-action@v3
+          with:
+            args: deploy --verbose
+          env:
+            # testing new things
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+            
