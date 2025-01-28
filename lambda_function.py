@@ -16,7 +16,6 @@ def lambda_handler(event, context):
     try:
         LOGGER.info("event received: %s", event)
         response = {}
-        LOGGER.info("path: %s", event["path"])
         if event["path"] == "/detect_mood":
             response = get_persons_mood(event, context)
         if event["path"] == "/recommend":

@@ -1,0 +1,52 @@
+useDotenv: true
+org: saatwik
+service: emotional-echo
+
+provider:
+  name: aws
+  stage: dev
+  region: ap-south-1
+  profile: new_aws_admin
+  stackName: emotional-echo
+  tags:
+    project: emotional-echo
+  stackTags:
+    project-stack-name: emotional-echo-stack
+  runtime: python3.12
+
+functions:
+  emotional_echo:
+    handler: lambda_function.lambda_handler
+    runtime: python3.12
+    timeout: 30
+    name: ${self:service}-${self:provider.stage} # Corrected variable syntax
+    architecture: x86_64
+    package:
+      patterns:
+        - lambda_function.py
+        - requirements.txt
+        - common_helpers.py
+        - mood_enhancer.py
+        - person_mood_detector.py
+    events:
+      - http:
+          path: /detect_mood
+          method: post
+          cors: true
+      - http:
+          path: /recommend
+          method: post
+          cors: true
+    environment:
+      google_gemini_api_key: ${env:google_gemini_api_key}
+
+plugins:
+  - serverless-python-requirements
+
+
+resources:
+  Resources:
+    ApiGatewayRestApi:
+      Type: AWS::ApiGateway::RestApi
+      Properties:
+        Name: emotional-echo # Custom name for the API Gateway

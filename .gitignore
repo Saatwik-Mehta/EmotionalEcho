@@ -1,1 +1,5 @@
 .env
+/mood_venv
+/node_modules
+/.serverless
+package-lock.json
