@@ -14,17 +14,17 @@ class PhotoDoesNotMeetRequirementError(Exception):
     def __init__(self, message):
         self.message = message
 
-def face_detector_encoded(image_coded):
+def mood_detector(image_coded):
     """
-    It takes in a filename, and returns a list of face details if the image meets the requirements
-    :param filename: the name of the image file in the S3 bucket
-    :param bucket_name: the name of the S3 bucket in which the image is stored
+    This function is used to detect the mood of the person in the image uploaded. The function uses the AWS Rekognition
+    to detect the emotions of the person in the image.
+    :param image_coded: The image uploaded by the user in base64 format.
     :return: The face_details is a list of dictionaries. Each dictionary contains the attributes of the face detected in the
     image.
     """
 
     try:
-        LOGGER.info("Started the face detection process")
+        LOGGER.info("Started the face detection process...")
         response = rekognition_client.detect_faces(
             Image={"Bytes": image_coded},
             Attributes=["ALL"],
@@ -57,19 +57,13 @@ def face_detector_encoded(image_coded):
 
 def get_persons_mood(event, context):
     try:
-        LOGGER.info("Started the person mood: : %s", event)
         body = json.loads(event.get("body"))
-        LOGGER.info("Started the person mood: : %s", body)
-
         base64_image = body["base64"]
-        LOGGER.info("Started the person mood: : %s", base64_image)
-
         isface= "UNKNOWN"
-        if base64_image:
-            image_decode = base64.b64decode(base64_image)
-            isface = face_detector_encoded(image_decode)
-            if not isface:
-                raise Exception("No face Detected")
+        image_decode = base64.b64decode(base64_image)
+        isface = mood_detector(image_decode)
+        if not isface:
+            raise Exception("No face Detected")
 
         return {"mood": isface}
     except PhotoDoesNotMeetRequirementError as error:
