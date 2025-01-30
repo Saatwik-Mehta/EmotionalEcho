@@ -8,7 +8,7 @@ import logging
 
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
-GEMINI_API_KEY = os.environ["google_gemini_api_key"]
+GEMINI_API_KEY = os.environ["GOOGLE_GEMINI_API_KEY"]
 mood_recommendations_mapping = {
     "HAPPY": "5 good quotes,5 good music, 5 good movies,  5 good book and novels, 5 good jokes, a major recommendation to stay happy",
     "SAD": "5 good quotes,5 good music, 5 good movies, 5 good book and novels, 5 indian mental health organisations, 5 good jokes, a major recommendation to stay happy",
