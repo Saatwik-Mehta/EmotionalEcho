@@ -38,7 +38,7 @@ functions:
           method: post
           cors: true
     environment:
-      google_gemini_api_key: ${env:google_gemini_api_key}
+      google_gemini_api_key: ${env:GOOGLE_GEMINI_API_KEY}
 
 plugins:
   - serverless-python-requirements

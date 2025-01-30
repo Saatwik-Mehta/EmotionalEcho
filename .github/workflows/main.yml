@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     env:
-        google_gemini_api_key: ${{ secrets.google_gemini_api_key }}
+        GOOGLE_GEMINI_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
 
     strategy:
             matrix:
