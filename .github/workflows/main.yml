@@ -26,7 +26,7 @@ jobs:
             node-version: 20
         - run: npm install
         - name: Deploy
-          run: npm sls deploy --stage dev --region ap-south-1
+          run: npx serverless deploy --stage dev --region ap-south-1
           env:
             # testing new things
             SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
