@@ -1,10 +1,12 @@
 useDotenv: true
 org: saatwik
 service: emotional-echo
+configValidationMode: error
 
 provider:
   name: aws
   stage: dev
+  deploymentMethod: direct
   region: ap-south-1
   profile: new_aws_admin
   stackName: emotional-echo
@@ -13,6 +15,14 @@ provider:
   stackTags:
     project-stack-name: emotional-echo-stack
   runtime: python3.11
+
+package:
+  individually: true
+  patterns:
+    - "!node_modules/**"
+    - "!requirements.txt"
+    - "!package.json"
+
 
 functions:
   emotional_echo:
