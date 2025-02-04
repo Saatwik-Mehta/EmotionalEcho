@@ -5,31 +5,29 @@ on:
       - main
 
 jobs:
-  dev-deploy:
+  deploy:
     name: development-deploy
     runs-on: ubuntu-latest
 
     if: github.ref == 'refs/heads/main'
     env:
-      SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
       GOOGLE_GEMINI_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
     steps:
-        - uses: actions/checkout@v4
-        - name: Use Python
-          uses: actions/setup-python@v4
-          with:
-            python-version: "3.13"
-        - uses: actions/checkout@v4
-        - name: Use Node.js 
-          uses: actions/setup-node@v4
-          with:
-            node-version: 20
-        - run: npm install
-        - name: Log in to Serverless
-          run: |
-              echo "Logging in to Serverless..."
-              npx serverless config credentials --provider aws --key ${{ secrets.SERVERLESS_ACCESS_KEY }}
-        - name: Deploy
-          run: npx serverless deploy --stage dev --region ap-south-1
+      - uses: actions/checkout@v4
+      - name: Use Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.13"
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm install
+      - run: npm ci
+      - name: serverless deploy
+        uses: serverless/github-action@v3.2
+        with:
+          args: deploy
+        env:
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
