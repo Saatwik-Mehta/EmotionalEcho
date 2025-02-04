@@ -26,9 +26,8 @@ jobs:
       - run: npm install
       # - run: npm ci
       - name: serverless deploy
-        uses: serverless/github-action@v3.2
-        run: sls plugin install -n serverless-python-requirements 
+        uses: serverless/github-action@v3.2 
         with:
-          args: deploy
+          args: plugin install -n serverless-python-requirements && deploy
         env:
           SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
