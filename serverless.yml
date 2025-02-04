@@ -12,12 +12,12 @@ provider:
     project: emotional-echo
   stackTags:
     project-stack-name: emotional-echo-stack
-  runtime: python3.11
+  runtime: python3.11.11
 
 functions:
   emotional_echo:
     handler: lambda_function.lambda_handler
-    runtime: python3.11
+    runtime: python3.11.11
     timeout: 30
     name: ${self:service}-${self:provider.stage} # Corrected variable syntax
     architecture: x86_64
