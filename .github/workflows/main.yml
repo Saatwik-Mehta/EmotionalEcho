@@ -24,9 +24,10 @@ jobs:
         with:
           node-version: 20
       - run: npm install
-      - run: npm ci
+      # - run: npm ci
       - name: serverless deploy
         uses: serverless/github-action@v3.2
+        run: sls plugin install -n serverless-python-requirements 
         with:
           args: deploy
         env:
