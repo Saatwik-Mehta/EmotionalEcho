@@ -17,7 +17,7 @@ jobs:
       - name: Use Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.11.0"
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
@@ -28,6 +28,6 @@ jobs:
       - name: serverless deploy
         uses: serverless/github-action@v3.2
         with:
-          args: deploy --verbose
+          args: -c "serverless plugin install --name serverless-python-requirements && serverless deploy"
         env:
           SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
