@@ -22,6 +22,8 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 20
+      - run: echo "${{ steps.setup-python.outputs.python-path }}/bin" >> $GITHUB_PATH
+      - run: python --version
       - run: npm shrinkwrap
       - run: npm install
       - run: npm ci
