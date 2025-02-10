@@ -2,7 +2,7 @@ name: Deploy emotional-echo-project CI
 on:
   push:
     branches:
-      - main
+      - '*'
 
 jobs:
   deploy:
@@ -17,20 +17,17 @@ jobs:
       - name: Use Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.11"
+          python-version: "3.x"
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install Serverless Framework
-        run: npm install -g serverless
-  
       - name: Install Python Requirements Plugin
         run: serverless plugin install -n serverless-python-requirements
       - name: serverless deploy
-        uses: serverless/github-action@v3.2 
+        uses: serverless/github-action@v3
         with:
-          args: deploy
+          args: deploy --verbose
         env:
           SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
