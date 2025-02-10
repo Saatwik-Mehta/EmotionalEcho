@@ -15,12 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Use Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
-          python-version: "3.11.0"
-      - uses: actions/checkout@v4
+          python-version: "3.11"
       - name: Use Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v3
         with:
           node-version: 20
       - run: npm shrinkwrap
@@ -28,7 +27,6 @@ jobs:
       - name: serverless deploy
         uses: serverless/github-action@v3.2
         with:
-          args: -c "serverless plugin install --name serverless-python-requirements && serverless deploy"
-          entrypoint: /bin/sh
+          args: deploy --verbose
         env:
           SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}
