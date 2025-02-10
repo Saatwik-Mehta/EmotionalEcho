@@ -15,14 +15,13 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Use Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v4
         with:
           python-version: "3.11.0"
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
-      - run: echo "${{ steps.setup-python.outputs.python-path }}/bin" >> $GITHUB_PATH
       - run: python --version
       - run: npm shrinkwrap
       - run: npm install
