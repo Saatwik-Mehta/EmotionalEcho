@@ -23,8 +23,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install Python Requirements Plugin
-        run: serverless plugin install -n serverless-python-requirements
+      - run: npm shrinkwrap
       - name: serverless deploy
         uses: serverless/github-action@v3
         with:
