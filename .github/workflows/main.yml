@@ -23,10 +23,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-      - run: npm install
       - run: npm shrinkwrap
+      - run: npm install
       - name: serverless deploy
-        uses: serverless/github-action@v3
+        uses: serverless/github-action@v3.2
         with:
           args: deploy --verbose
         env:
