@@ -7,7 +7,7 @@ permissions:
   id-token: write
   contents: write
   pull-requests: write
-  
+
 jobs:
   deploy:
     name: development-deploy
@@ -32,7 +32,7 @@ jobs:
       - name: Configure AWS Credentials - Serverless Marketing AWS Account
         uses: aws-actions/configure-aws-credentials@v4
         with:
-            role-to-assume: ROLE_TO_ASSUME
+            role-to-assume: arn:aws:iam::861276105008:role/SFRole-1jfFBJVh
             aws-region: ap-south-1
       - name: Serverless Deploy - Prod
         uses: serverless/github-action@v4
