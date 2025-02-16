@@ -3,7 +3,11 @@ on:
   push:
     branches:
       - '*'
-
+permissions:
+  id-token: write
+  contents: write
+  pull-requests: write
+  
 jobs:
   deploy:
     name: development-deploy
