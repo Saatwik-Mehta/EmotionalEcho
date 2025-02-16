@@ -29,11 +29,11 @@ jobs:
           node-version: 20
       - name: Install Dependencies
         run: npm install
-      # - name: Configure AWS Credentials - Serverless Marketing AWS Account
-      #   uses: aws-actions/configure-aws-credentials@v4
-      #   with:
-      #       role-to-assume: arn:aws:iam::861276105008:role/GithubActionsRole
-      #       aws-region: ap-south-1
+      - name: Configure AWS Credentials - Serverless Marketing AWS Account
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+            role-to-assume: arn:aws:iam::861276105008:role/GithubActionsRole
+            aws-region: us-east-1
       - name: Serverless Deploy - dev
         uses: serverless/github-action@v4
         with:
