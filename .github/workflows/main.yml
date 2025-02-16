@@ -32,9 +32,9 @@ jobs:
       - name: Configure AWS Credentials - Serverless Marketing AWS Account
         uses: aws-actions/configure-aws-credentials@v4
         with:
-            role-to-assume: arn:aws:iam::861276105008:role/SFRole-1jfFBJVh
+            role-to-assume: arn:aws:iam::861276105008:role/GithubActionsRole
             aws-region: ap-south-1
-      - name: Serverless Deploy - Prod
+      - name: Serverless Deploy - dev
         uses: serverless/github-action@v4
         with:
             args: deploy --stage dev
