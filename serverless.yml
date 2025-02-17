@@ -8,7 +8,6 @@ provider:
   stage: dev
   deploymentMethod: direct
   region: ap-south-1
-  profile: new_aws_admin
   stackName: emotional-echo
   tags:
     project: emotional-echo
