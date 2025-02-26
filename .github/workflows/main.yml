@@ -1,8 +1,8 @@
-name: Deploy emotional-echo-project CI
+name: Deploy emotional-echo app
 on:
   push:
     branches:
-      - '*'
+      - master
 
 jobs:
   deploy:
@@ -13,22 +13,21 @@ jobs:
     if: github.ref == 'refs/heads/main'
     env:
       GOOGLE_GEMINI_API_KEY: ${{ secrets.GOOGLE_GEMINI_API_KEY }}
-      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
-      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Use Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.11.0"
+          python-version: 3.12
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 20.x
       - name: Install Dependencies
         run: npm install
-      - name: Serverless Deploy - dev
-        run: |
-          npm cache clean --force
-          npx serverless deploy --stage dev --region ap-south-1 --verbose
-          pip install boto3
+      - name: serverless deploy
+        uses: serverless/github-action@v4
+        with:
+          args: deploy
+        env:
+          SERVERLESS_ACCESS_KEY: ${{ secrets.SERVERLESS_ACCESS_KEY }}

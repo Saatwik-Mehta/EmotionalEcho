@@ -1,19 +1,19 @@
 useDotenv: true
 org: saatwik
+app: serverless-app
 service: emotional-echo
 configValidationMode: error
+
+frameworkVersion: '4'
 
 provider:
   name: aws
   stage: dev
-  deploymentMethod: direct
   region: ap-south-1
-  stackName: emotional-echo
+  stackName: emotional-echo-app-${self:provider.region}
   tags:
     project: emotional-echo
-  stackTags:
-    project-stack-name: emotional-echo-stack
-  runtime: python3.11
+  runtime: python3.12
 
 package:
   individually: true
@@ -26,7 +26,6 @@ package:
 functions:
   emotional_echo:
     handler: lambda_function.lambda_handler
-    runtime: python3.11
     timeout: 30
     name: ${self:service}-${self:provider.stage} # Corrected variable syntax
     architecture: x86_64
