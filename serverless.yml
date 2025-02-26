@@ -10,9 +10,6 @@ provider:
   name: aws
   stage: dev
   region: ap-south-1
-  stackName: emotional-echo-app-${self:provider.region}
-  tags:
-    project: emotional-echo
   runtime: python3.12
 
 package:
