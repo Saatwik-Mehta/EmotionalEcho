@@ -2,7 +2,7 @@ name: Deploy emotional-echo app
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
